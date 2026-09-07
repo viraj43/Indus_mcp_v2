@@ -6,7 +6,11 @@ import { childLogger } from "../logger.js";
 const log = childLogger("queue");
 
 // BullMQ requires its own connection with maxRetriesPerRequest disabled.
-const connection = new Redis(env.REDIS_URL, { maxRetriesPerRequest: null, lazyConnect: true });
+const connection = new Redis(env.REDIS_URL, {
+  family: 0,
+  maxRetriesPerRequest: null,
+  lazyConnect: true,
+});
 connection.on("error", (err: Error) => log.warn({ err: err.message }, "BullMQ Redis connection error"));
 
 export const RESEARCH_QUEUE_NAME = "induss-research-jobs";
