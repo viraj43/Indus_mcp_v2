@@ -9,8 +9,11 @@ export const NEWS_PROFILE: SourceProfile = {
       `${company} fraud OR lawsuit OR investigation OR scam OR default OR penalty OR layoffs`,
     competitors: (company) => `${company} competitors rivals market comparison`,
     litigation: (company) => `${company} lawsuit court case litigation`,
+<<<<<<< HEAD
     concall: (company) => `${company} earnings call concall transcript management guidance commentary`,
     consensus: (company) => `${company} analyst target price consensus rating brokerage`,
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   },
   confidence: 0.85,
   tier: "news",

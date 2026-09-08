@@ -45,7 +45,11 @@ export async function getLitigationHistory(contextInput: ResearchContextInput): 
     context,
     templateKey: "litigation",
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 15,
+=======
+    numResults: 10,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "litigation_history",
     cacheTtlSeconds: 1800,
     verifyEntity: context.company,
@@ -60,7 +64,11 @@ export async function getLitigationHistory(contextInput: ResearchContextInput): 
       publishedDate: r.publishedDate,
       caseReference,
       regulatorsMentioned,
+<<<<<<< HEAD
       snippet: r.text.slice(0, 800),
+=======
+      snippet: r.text.slice(0, 300),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     };
   });
 

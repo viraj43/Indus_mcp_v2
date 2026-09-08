@@ -45,7 +45,11 @@ export async function getFundingHistory(contextInput: ResearchContextInput): Pro
     context,
     templateKey: "funding",
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 14,
+=======
+    numResults: 8,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "funding_history",
     verifyEntity: context.company,
   });
@@ -60,7 +64,11 @@ export async function getFundingHistory(contextInput: ResearchContextInput): Pro
         round: roundMatch?.[1]?.trim() ?? null,
         amountRaw: amountMatch?.[2]?.trim() ?? null,
         amountNormalized: amountMatch ? parseFinancialNumber(amountMatch[2]) : null,
+<<<<<<< HEAD
         snippet: r.text.slice(0, 700),
+=======
+        snippet: r.text.slice(0, 300),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
         publishedDate: r.publishedDate,
       };
     })

@@ -56,7 +56,11 @@ export async function getNegativeNews(contextInput: ResearchContextInput): Promi
     context,
     templateKey: "sentiment",
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 15,
+=======
+    numResults: 10,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "negative_news",
     cacheTtlSeconds: 1800,
     verifyEntity: context.company,
@@ -66,7 +70,11 @@ export async function getNegativeNews(contextInput: ResearchContextInput): Promi
     .map((r) => {
       const matchedKeywords = NEGATIVE_KEYWORDS.filter((kw) => new RegExp(`\\b${kw}\\b`, "i").test(r.text));
       if (matchedKeywords.length === 0) return null;
+<<<<<<< HEAD
       return { title: r.title, url: r.url, publishedDate: r.publishedDate, matchedKeywords, snippet: r.text.slice(0, 700) };
+=======
+      return { title: r.title, url: r.url, publishedDate: r.publishedDate, matchedKeywords, snippet: r.text.slice(0, 300) };
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     })
     .filter((e): e is NonNullable<typeof e> => e !== null);
 

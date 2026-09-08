@@ -176,6 +176,7 @@ export function runDcf(a: DcfAssumptions): DcfResult {
     issues,
   };
 }
+<<<<<<< HEAD
 
 /** A 3-stage DCF — explicit forecast, then a fade stage where growth
  * glides linearly down toward the terminal rate, then the terminal value —
@@ -245,3 +246,5 @@ export function runMultiStageDcf(a: MultiStageDcfAssumptions): MultiStageDcfResu
 
   return { ...combined, stage1Years, fadeYears: a.fadeYears };
 }
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f

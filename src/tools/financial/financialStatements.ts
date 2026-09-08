@@ -6,11 +6,19 @@ import { extractTables } from "../../core/extraction/htmlExtractor.js";
 import { parseFinancialTable, findLineItem, type ParsedFinancialTable } from "../../core/extraction/tableExtractor.js";
 import { extractPdfText, findKeywordContexts } from "../../core/extraction/pdfExtractor.js";
 import { extractPdfTables } from "../../core/extraction/pdfTableExtractor.js";
+<<<<<<< HEAD
 import { extractScreenerFinancials, mapScreenerToFinancialStatements, mapScreenerQuarters } from "../../core/extraction/screenerExtractor.js";
 import { findScreenerSlug, fetchScreenerPage } from "../../core/financial/screenerLookup.js";
 import { extractPressFinancialEstimates, type PressFinancialEstimate } from "../../core/extraction/pressFinancialsExtractor.js";
 import { fetchDocument } from "../../core/pipeline/fetchDocument.js";
 import { computeRatioSet, computeTrend, projectFinancials, type FinancialStatement, type RatioSet, type TrendAnalysis, type FinancialProjection } from "../../core/financial/financialEngine.js";
+=======
+import { extractScreenerFinancials, mapScreenerToFinancialStatements } from "../../core/extraction/screenerExtractor.js";
+import { findScreenerSlug, fetchScreenerPage } from "../../core/financial/screenerLookup.js";
+import { extractPressFinancialEstimates, type PressFinancialEstimate } from "../../core/extraction/pressFinancialsExtractor.js";
+import { fetchDocument } from "../../core/pipeline/fetchDocument.js";
+import { computeRatioSet, computeTrend, type FinancialStatement, type RatioSet, type TrendAnalysis } from "../../core/financial/financialEngine.js";
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 import { checkFinancialPlausibility, type PlausibilityIssue } from "../../core/quality/validationEngine.js";
 import { scoreSource } from "../../core/citations/sourcePriority.js";
 import { dedupeCitations, aggregateConfidence } from "../../core/citations/citationEngine.js";
@@ -32,7 +40,11 @@ export const financialStatementsMeta: ToolMeta = {
   category: "financial",
   description: "Locates a company's financial statements via a source waterfall (screener.in structured data, then filing-PDF table recovery, then generic HTML/PDF extraction, then — for unlisted companies — press-reported RoC-filing digests) and returns them as ready-to-use FinancialStatement[] (optionally with ratios/trend computed inline), or a clearly-labeled unaudited estimate when only press coverage is available.",
   inputs: ["context.company", "context.listed", "includeRatios"],
+<<<<<<< HEAD
   outputs: ["status", "statements", "ratios", "trend", "projection", "extractionMethod", "estimates"],
+=======
+  outputs: ["status", "statements", "ratios", "trend", "extractionMethod", "estimates"],
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   requiredSources: ["exchange", "mca", "financialData", "privateData", "startupMedia"],
   caching: true,
   estimatedRuntimeMs: 6000,
@@ -76,6 +88,7 @@ export type FinancialStatementsData =
       statements: FinancialStatement[];
       ratios?: RatioSet[];
       trend?: TrendAnalysis;
+<<<<<<< HEAD
       projection?: FinancialProjection;
       plausibilityIssues?: Record<string, PlausibilityIssue[]>;
       /** Only populated when extractionMethod is "screener_structured" —
@@ -91,6 +104,9 @@ export type FinancialStatementsData =
        * Sales/Operating Profit/Net Profit trend every real initiating-
        * coverage note carries, distinct from the annual statements above. */
       quarterlyStatements?: FinancialStatement[];
+=======
+      plausibilityIssues?: Record<string, PlausibilityIssue[]>;
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       /** Only populated when extractionMethod is "pdf_keyword_context" —
        * i.e. real tabular structure couldn't be recovered at all, so
        * `statements` is empty and this is the best the pipeline could do:
@@ -159,7 +175,11 @@ interface GenericExtractionResult {
  * no table structure could be recovered at all. Stops at the first URL
  * that yields anything usable. */
 async function tryGenericExtraction(urls: string[]): Promise<GenericExtractionResult | null> {
+<<<<<<< HEAD
   for (const url of urls.slice(0, 8)) {
+=======
+  for (const url of urls.slice(0, 4)) {
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     const doc = await fetchDocument(url);
     if (!doc) continue;
 
@@ -196,7 +216,11 @@ export async function getFinancialStatements(
     context,
     templateKey,
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 16,
+=======
+    numResults: 10,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "financial_statements",
     verifyEntity: context.company,
     // Deep extraction is handled explicitly below (screener-first
@@ -231,8 +255,11 @@ export async function getFinancialStatements(
   let primarySourceUrl = results[0].url;
   let keywordContexts: Record<string, string[]> | undefined;
   let finalCitations = citations;
+<<<<<<< HEAD
   let marketRatios: Record<string, number | null> | undefined;
   let quarterlyStatements: FinancialStatement[] | undefined;
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 
   // Waterfall step 1: screener.in structured extraction — real,
   // multi-period, all-line-items-at-once data for any listed company
@@ -242,6 +269,7 @@ export async function getFinancialStatements(
     if (screenerSlug) {
       const html = await fetchScreenerPage(screenerSlug);
       if (html) {
+<<<<<<< HEAD
         const screenerData = extractScreenerFinancials(html);
         const mapped = mapScreenerToFinancialStatements(screenerData);
         if (mapped.length > 0) {
@@ -250,6 +278,12 @@ export async function getFinancialStatements(
           marketRatios = screenerData.topRatios;
           const mappedQuarters = mapScreenerQuarters(screenerData.quarters);
           if (mappedQuarters.length > 0) quarterlyStatements = mappedQuarters;
+=======
+        const mapped = mapScreenerToFinancialStatements(extractScreenerFinancials(html));
+        if (mapped.length > 0) {
+          statements = mapped;
+          extractionMethod = "screener_structured";
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
           primarySourceUrl = `https://www.screener.in/company/${screenerSlug}/consolidated/`;
           const scored = scoreSource(primarySourceUrl, null);
           const screenerCitation: Citation = {
@@ -322,7 +356,11 @@ export async function getFinancialStatements(
             ? "No audited or press-reported financial figures could be found for this unlisted company. Real audited financials require purchasing its AOC-4 filing from the MCA21 portal or a paid data vendor (Probe42, Tofler's paid API, Setu's MCA API) — every free third-party aggregator this tool can reach (Zaubacorp, Tofler's public site, Craft.co, Owler, Dealroom) is bot-walled against automated access."
             : "Sources were found for this company, but no structured financial tables or line-item figures could be parsed from them (often a paywalled aggregator page, a JS-only page with no server-rendered table, or a PDF whose layout defeated both the table-position reconstruction and the keyword-context fallback).",
         recommendedSources,
+<<<<<<< HEAD
         rawSnippets: results.slice(0, 6).map((r) => ({ url: r.url, snippet: r.text.slice(0, 1200) })),
+=======
+        rawSnippets: results.slice(0, 3).map((r) => ({ url: r.url, snippet: r.text.slice(0, 400) })),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       },
       citations: finalCitations,
       confidence: Math.min(confidence, 0.4),
@@ -332,14 +370,20 @@ export async function getFinancialStatements(
 
   let ratios: RatioSet[] | undefined;
   let trend: TrendAnalysis | undefined;
+<<<<<<< HEAD
   let projection: FinancialProjection | undefined;
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   let plausibilityIssues: Record<string, PlausibilityIssue[]> | undefined;
 
   if (hasStatements) {
     if (includeRatios) {
       ratios = statements.map(computeRatioSet);
       trend = computeTrend(statements);
+<<<<<<< HEAD
       projection = projectFinancials(statements, 3) ?? undefined;
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     }
     const issues: Record<string, PlausibilityIssue[]> = {};
     for (const statement of statements) {
@@ -360,11 +404,16 @@ export async function getFinancialStatements(
       statements,
       ratios,
       trend,
+<<<<<<< HEAD
       projection,
       plausibilityIssues,
       keywordContexts: hasKeywordContext ? keywordContexts : undefined,
       marketRatios,
       quarterlyStatements,
+=======
+      plausibilityIssues,
+      keywordContexts: hasKeywordContext ? keywordContexts : undefined,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     },
     citations: finalCitations,
     confidence: plausibilityIssues ? Math.min(finalConfidence, 0.5) : hasStatements ? finalConfidence : Math.min(finalConfidence, 0.6),
@@ -376,7 +425,11 @@ export function registerFinancialStatementsTool(server: FastMCP): void {
   server.addTool({
     name: "financial_statements",
     description:
+<<<<<<< HEAD
       "Retrieves a company's financial statements through a source waterfall: screener.in's structured profit-and-loss/balance-sheet/cash-flow tables first (real multi-period data for any covered listed company), then positional table recovery from filing PDFs (BSE/NSE results, annual reports), then generic HTML table scraping, then keyword-context text windows as a last resort. Returns ready-to-use FinancialStatement[] — the same shape ratio_analysis consumes — with ratios, multi-period CAGR trend, and a 3-year trend-extrapolated Revenue/EBITDA/PAT projection (computed inline by default whenever 2+ historical periods are available; clearly labeled as a mechanical CAGR carry-forward, never management guidance or a DCF output — see dcf_valuation/scenario_analysis for assumption-driven fair value). Never returns bare nulls: when data can't be found, returns a structured not_available status naming which sources were checked.",
+=======
+      "Retrieves a company's financial statements through a source waterfall: screener.in's structured profit-and-loss/balance-sheet/cash-flow tables first (real multi-period data for any covered listed company), then positional table recovery from filing PDFs (BSE/NSE results, annual reports), then generic HTML table scraping, then keyword-context text windows as a last resort. Returns ready-to-use FinancialStatement[] — the same shape ratio_analysis consumes — with ratios and multi-period CAGR trend computed inline by default. Never returns bare nulls: when data can't be found, returns a structured not_available status naming which sources were checked.",
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     parameters: paramsSchema,
     annotations: { title: "Financial Statements", readOnlyHint: true, openWorldHint: true },
     execute: async (args) => {

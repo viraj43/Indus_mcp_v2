@@ -174,6 +174,7 @@ export function computeTrend(statements: FinancialStatement[]): TrendAnalysis {
     periodsAnalyzed: statements.length,
   };
 }
+<<<<<<< HEAD
 
 export interface ProjectedPeriod {
   period: string;
@@ -244,3 +245,5 @@ export function projectFinancials(statements: FinancialStatement[], yearsForward
       "These are trend-extrapolated projections, computed by holding this company's own trailing revenue/profit CAGR and latest EBITDA margin constant — they are not management guidance, a sell-side estimate, or a DCF output, and should be read as a mechanical baseline only. For an assumption-driven fair-value projection, see dcf_valuation and scenario_analysis.",
   };
 }
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f

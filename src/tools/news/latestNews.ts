@@ -45,7 +45,11 @@ export async function getLatestNews(
     context,
     templateKey: "latest",
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 16,
+=======
+    numResults: 10,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     startPublishedDate,
     cacheNamespace: "latest_news",
     cacheTtlSeconds: 900,
@@ -61,7 +65,11 @@ export async function getLatestNews(
   return {
     data: {
       companyName: context.company!,
+<<<<<<< HEAD
       articles: sorted.map((r) => ({ title: r.title, url: r.url, publishedDate: r.publishedDate, snippet: r.text.slice(0, 700) })),
+=======
+      articles: sorted.map((r) => ({ title: r.title, url: r.url, publishedDate: r.publishedDate, snippet: r.text.slice(0, 300) })),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     },
     citations,
     confidence,

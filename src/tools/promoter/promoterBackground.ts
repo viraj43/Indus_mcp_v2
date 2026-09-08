@@ -44,7 +44,11 @@ export async function getPromoterBackground(contextInput: ResearchContextInput):
     context,
     templateKey: "promoterCheck",
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 14,
+=======
+    numResults: 8,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "promoter_background",
     cacheTtlSeconds: 1800,
     verifyEntity: context.company,
@@ -52,7 +56,11 @@ export async function getPromoterBackground(contextInput: ResearchContextInput):
 
   const flags = results
     .filter((r) => DISQUALIFICATION_REGEX.test(r.text))
+<<<<<<< HEAD
     .map((r) => ({ title: r.title, url: r.url, publishedDate: r.publishedDate, snippet: r.text.slice(0, 700) }));
+=======
+    .map((r) => ({ title: r.title, url: r.url, publishedDate: r.publishedDate, snippet: r.text.slice(0, 300) }));
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 
   return {
     data: { name: context.company!, flags, screenClean: flags.length === 0 },

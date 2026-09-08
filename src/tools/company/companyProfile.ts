@@ -52,7 +52,11 @@ export async function getCompanyProfile(contextInput: ResearchContextInput): Pro
       context,
       templateKey: "registryProfile",
       subject: context.company!,
+<<<<<<< HEAD
       numResults: 10,
+=======
+      numResults: 6,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       cacheNamespace: "company_profile",
       verifyEntity: context.company,
       validate: (r) => {

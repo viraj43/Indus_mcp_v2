@@ -50,7 +50,11 @@ export async function getDiscoverCompetitors(contextInput: ResearchContextInput)
     context,
     templateKey: "competitors",
     subject,
+<<<<<<< HEAD
     numResults: 14,
+=======
+    numResults: 8,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "discover_competitors",
     // Deliberately no verifyEntity here: the whole point of this search is
     // to surface *other* companies, not the searched one.

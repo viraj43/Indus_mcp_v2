@@ -2,6 +2,7 @@ import type { FastMCP } from "fastmcp";
 import { registerSearchCompanyTool } from "./company/searchCompany.js";
 import { registerCompanyProfileTool } from "./company/companyProfile.js";
 import { registerCompanyOverviewTool } from "./company/companyOverview.js";
+<<<<<<< HEAD
 import { registerShareholdingPatternTool } from "./company/shareholdingPattern.js";
 import { registerManagementProfileTool } from "./company/managementProfile.js";
 import { registerFinancialStatementsTool } from "./financial/financialStatements.js";
@@ -11,19 +12,30 @@ import { registerOperatingMetricsTool } from "./financial/operatingMetrics.js";
 import { registerDcfValuationTool } from "./valuation/dcfValuation.js";
 import { registerMultiStageDcfValuationTool } from "./valuation/multiStageDcfValuation.js";
 import { registerSotpValuationTool } from "./valuation/sotpValuation.js";
+=======
+import { registerFinancialStatementsTool } from "./financial/financialStatements.js";
+import { registerRatioAnalysisTool } from "./financial/ratioAnalysis.js";
+import { registerDcfValuationTool } from "./valuation/dcfValuation.js";
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 import { registerComparablesValuationTool } from "./valuation/comparablesValuation.js";
 import { registerScenarioAnalysisTool } from "./valuation/scenarioAnalysis.js";
 import { registerRedFlagScreenTool } from "./valuation/redFlagScreen.js";
 import { registerFundingHistoryTool } from "./funding/fundingHistory.js";
 import { registerDiscoverCompetitorsTool } from "./competitor/discoverCompetitors.js";
 import { registerListedPeerComparisonTool } from "./competitor/listedPeerComparison.js";
+<<<<<<< HEAD
 import { registerGlobalPeerCompsTool } from "./competitor/globalPeerComps.js";
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 import { registerIndustryOverviewTool } from "./industry/industryOverview.js";
 import { registerMarketSizeTool } from "./industry/marketSize.js";
 import { registerLatestNewsTool } from "./news/latestNews.js";
 import { registerNegativeNewsTool } from "./news/negativeNews.js";
+<<<<<<< HEAD
 import { registerManagementCommentaryTool } from "./news/managementCommentary.js";
 import { registerConsensusEstimatesTool } from "./news/consensusEstimates.js";
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 import { registerLitigationHistoryTool } from "./litigation/litigationHistory.js";
 import { registerPromoterBackgroundTool } from "./promoter/promoterBackground.js";
 import { registerGenerateReportTool } from "./report/generateReport.js";
@@ -39,20 +51,29 @@ export function registerAllTools(server: FastMCP): void {
   registerSearchCompanyTool(server);
   registerCompanyProfileTool(server);
   registerCompanyOverviewTool(server);
+<<<<<<< HEAD
   registerShareholdingPatternTool(server);
   registerManagementProfileTool(server);
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 
   // Financial Intelligence
   registerFinancialStatementsTool(server);
   registerRatioAnalysisTool(server);
+<<<<<<< HEAD
   registerSegmentRevenueTool(server);
   registerOperatingMetricsTool(server);
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 
   // Valuation & Risk (mechanical calculation, no search — see design note
   // in core/reports/analystNote.ts: these tools compute, they don't judge)
   registerDcfValuationTool(server);
+<<<<<<< HEAD
   registerMultiStageDcfValuationTool(server);
   registerSotpValuationTool(server);
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   registerComparablesValuationTool(server);
   registerScenarioAnalysisTool(server);
   registerRedFlagScreenTool(server);
@@ -63,7 +84,10 @@ export function registerAllTools(server: FastMCP): void {
   // Competitor Intelligence
   registerDiscoverCompetitorsTool(server);
   registerListedPeerComparisonTool(server);
+<<<<<<< HEAD
   registerGlobalPeerCompsTool(server);
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 
   // Industry Intelligence
   registerIndustryOverviewTool(server);
@@ -72,8 +96,11 @@ export function registerAllTools(server: FastMCP): void {
   // News Intelligence
   registerLatestNewsTool(server);
   registerNegativeNewsTool(server);
+<<<<<<< HEAD
   registerManagementCommentaryTool(server);
   registerConsensusEstimatesTool(server);
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 
   // Litigation & Compliance
   registerLitigationHistoryTool(server);

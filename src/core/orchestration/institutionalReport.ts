@@ -4,21 +4,29 @@ import { dedupeCitations, aggregateConfidence } from "../citations/citationEngin
 import { labelDomains } from "../../sources/labels.js";
 import { getCompanyProfile } from "../../tools/company/companyProfile.js";
 import { getCompanyOverview } from "../../tools/company/companyOverview.js";
+<<<<<<< HEAD
 import { getShareholdingPattern } from "../../tools/company/shareholdingPattern.js";
 import { getManagementProfile } from "../../tools/company/managementProfile.js";
 import { getFinancialStatements } from "../../tools/financial/financialStatements.js";
 import { getSegmentRevenue } from "../../tools/financial/segmentRevenue.js";
 import { getIndustryOverview } from "../../tools/industry/industryOverview.js";
 import { getMarketSize } from "../../tools/industry/marketSize.js";
+=======
+import { getFinancialStatements } from "../../tools/financial/financialStatements.js";
+import { getIndustryOverview } from "../../tools/industry/industryOverview.js";
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 import { getDiscoverCompetitors } from "../../tools/competitor/discoverCompetitors.js";
 import { getFundingHistory } from "../../tools/funding/fundingHistory.js";
 import { getLitigationHistory } from "../../tools/litigation/litigationHistory.js";
 import { getPromoterBackground } from "../../tools/promoter/promoterBackground.js";
 import { getNegativeNews } from "../../tools/news/negativeNews.js";
 import { getLatestNews } from "../../tools/news/latestNews.js";
+<<<<<<< HEAD
 import { getManagementCommentary } from "../../tools/news/managementCommentary.js";
 import { getConsensusEstimates } from "../../tools/news/consensusEstimates.js";
 import { buildAutoValuation, type AutoValuationResult } from "./autoValuation.js";
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 import type { ToolResult } from "../../types/common.js";
 
 export type InstitutionalReportType = "debt_raising" | "credit_assessment" | "equity_research" | "general_diligence";
@@ -88,7 +96,11 @@ function buildCompanySnapshotSection(
   }
   if (overview?.data.summary) {
     lines.push("");
+<<<<<<< HEAD
     lines.push(overview.data.summary.slice(0, 2500));
+=======
+    lines.push(overview.data.summary.slice(0, 800));
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   }
 
   const citations = dedupeCitations([...(profile?.citations ?? []), ...(overview?.citations ?? [])]);
@@ -104,10 +116,14 @@ function buildCompanySnapshotSection(
   };
 }
 
+<<<<<<< HEAD
 function buildFinancialSection(
   financials: ToolResult<Awaited<ReturnType<typeof getFinancialStatements>>["data"]> | null,
   segmentRevenue: ToolResult<Awaited<ReturnType<typeof getSegmentRevenue>>["data"]> | null,
 ): ResearchSection {
+=======
+function buildFinancialSection(financials: ToolResult<Awaited<ReturnType<typeof getFinancialStatements>>["data"]> | null): ResearchSection {
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   if (!financials) {
     return {
       title: "Financial Snapshot",
@@ -119,6 +135,7 @@ function buildFinancialSection(
     };
   }
 
+<<<<<<< HEAD
   const segmentTable: ReportTable[] =
     segmentRevenue && segmentRevenue.data.mentions.length > 0
       ? [
@@ -133,13 +150,20 @@ function buildFinancialSection(
 
   const mergedFinancialCitations = dedupeCitations([...financials.citations, ...(segmentRevenue?.citations ?? [])]);
 
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   const d = financials.data;
   if (d.status === "not_available") {
     return {
       title: "Financial Snapshot",
       summary: `**Status:** Not Available\n\n**Reason:** ${d.reason}\n\n- Recommended sources to check manually: ${d.recommendedSources.join(", ")}`,
+<<<<<<< HEAD
       tables: segmentTable,
       citations: mergedFinancialCitations,
+=======
+      tables: [],
+      citations: financials.citations,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       confidence: 0,
       metadata: { tone: "warning", label: "Financial Data Not Available" },
     };
@@ -162,14 +186,23 @@ function buildFinancialSection(
     return {
       title: "Financial Snapshot",
       summary: `**Status:** Estimate Only (unaudited)\n\n${d.note}`,
+<<<<<<< HEAD
       tables: [table, ...segmentTable],
       citations: mergedFinancialCitations,
+=======
+      tables: [table],
+      citations: financials.citations,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       confidence: financials.confidence,
       metadata: { tone: "info", label: "Unaudited Press-Reported Estimate" },
     };
   }
 
+<<<<<<< HEAD
   const tables: ReportTable[] = [...segmentTable];
+=======
+  const tables: ReportTable[] = [];
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   const fmt = (v: number | null | undefined) => (v === null || v === undefined ? "N/A" : String(v));
 
   if (d.statements.length > 0) {
@@ -203,6 +236,7 @@ function buildFinancialSection(
     }
   }
 
+<<<<<<< HEAD
   if (d.quarterlyStatements && d.quarterlyStatements.length > 0) {
     const qPeriods = d.quarterlyStatements.map((s) => s.period);
     tables.push({
@@ -242,20 +276,32 @@ function buildFinancialSection(
     ? `**Revenue CAGR:** ${fmt(d.trend.revenueCagr)}%  **Net Profit CAGR:** ${fmt(d.trend.netProfitCagr)}% (${d.trend.periodsAnalyzed}-period trailing)\n\n`
     : "";
   const projectionNote = d.projection ? `> **Trend-Extrapolated Projections:** ${d.projection.disclosure}\n\n` : "";
+=======
+  const trendLine = d.trend
+    ? `**Revenue CAGR:** ${fmt(d.trend.revenueCagr)}%  **Net Profit CAGR:** ${fmt(d.trend.netProfitCagr)}% (${d.trend.periodsAnalyzed}-period trailing)\n\n`
+    : "";
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   const plausibilityNote = d.plausibilityIssues
     ? `\n\n> Accounting-identity checks flagged ${Object.keys(d.plausibilityIssues).length} period(s) for review (see \`plausibilityIssues\`) — treat those figures with caution pending verification against the primary filing.`
     : "";
 
   return {
     title: "Financial Snapshot",
+<<<<<<< HEAD
     summary: `**Source:** ${humanizeExtractionMethod(d.extractionMethod)}\n**Primary Source:** ${d.primarySourceUrl}\n\n${trendLine}${projectionNote}${plausibilityNote}`,
     tables,
     citations: mergedFinancialCitations,
+=======
+    summary: `**Source:** ${humanizeExtractionMethod(d.extractionMethod)}\n**Primary Source:** ${d.primarySourceUrl}\n\n${trendLine}${plausibilityNote}`,
+    tables,
+    citations: financials.citations,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     confidence: financials.confidence,
     metadata: {},
   };
 }
 
+<<<<<<< HEAD
 function buildIndustrySection(
   industry: ToolResult<Awaited<ReturnType<typeof getIndustryOverview>>["data"]> | null,
   marketSize: ToolResult<Awaited<ReturnType<typeof getMarketSize>>["data"]> | null,
@@ -291,6 +337,18 @@ function buildIndustrySection(
     tables,
     citations,
     confidence: aggregateConfidence(citations),
+=======
+function buildIndustrySection(industry: ToolResult<Awaited<ReturnType<typeof getIndustryOverview>>["data"]> | null): ResearchSection | null {
+  if (!industry) return null;
+  return {
+    title: "Industry Overview — Macro Research",
+    summary:
+      industry.data.summary ||
+      "No industry-level coverage was found in the trusted source set for this sector — worth a manual check against a consulting/market-research house directly.",
+    tables: [],
+    citations: industry.citations,
+    confidence: industry.confidence,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     metadata: {},
   };
 }
@@ -348,6 +406,7 @@ function buildFundingSection(funding: ToolResult<Awaited<ReturnType<typeof getFu
   };
 }
 
+<<<<<<< HEAD
 function buildShareholdingSection(shareholding: ToolResult<Awaited<ReturnType<typeof getShareholdingPattern>>["data"]> | null): ResearchSection | null {
   if (!shareholding) return null;
   if (!shareholding.data.latestByCategory) {
@@ -420,6 +479,8 @@ function buildConsensusSection(consensus: ToolResult<Awaited<ReturnType<typeof g
   };
 }
 
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 function buildRiskScreeningSection(
   litigation: ToolResult<Awaited<ReturnType<typeof getLitigationHistory>>["data"]> | null,
   promoter: ToolResult<Awaited<ReturnType<typeof getPromoterBackground>>["data"]> | null,
@@ -439,7 +500,11 @@ function buildRiskScreeningSection(
         ? "- **Litigation / Regulatory (SEBI, NCLT, legal media):** No matches found."
         : `- **Litigation / Regulatory (SEBI, NCLT, legal media):** ${litigation.data.cases.length} potential record(s) found — requires manual review.`,
     );
+<<<<<<< HEAD
     for (const c of litigation.data.cases.slice(0, 8)) {
+=======
+    for (const c of litigation.data.cases.slice(0, 3)) {
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       lines.push(`  - [${c.title}](${c.url})${c.caseReference ? ` (Case: ${c.caseReference})` : ""}`);
     }
   } else {
@@ -490,6 +555,7 @@ function buildRiskScreeningSection(
   };
 }
 
+<<<<<<< HEAD
 /** Renders the auto-run DCF + scenario analysis (see autoValuation.ts) as
  * its own report section — real arithmetic over disclosed, mostly
  * company-derived assumptions, not the analyst's final judgment call. Kept
@@ -558,6 +624,8 @@ function buildValuationSection(valuation: AutoValuationResult | null): ResearchS
   };
 }
 
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
 /** This composite tool only assembles source-derived, deterministic
  * sections — the SWOT grid, the bull/bear narrative, and a DCF/comps-based
  * valuation call for judgment this server deliberately won't fake (see
@@ -573,8 +641,13 @@ function buildAnalystChecklistSection(): ResearchSection {
     "This report covers verified facts and figures. A finished institutional note also needs the analyst's own synthesis — add the following as new sections (via `generate_report`/`generate_pdf`), each marked `metadata.kind = \"ai_interpretation\"` so it renders as your own view rather than sourced fact:",
     "",
     "- **SWOT Analysis** — Strengths/Weaknesses/Opportunities/Threats, reasoned from the Company Snapshot, Financial Snapshot, Industry Overview, and Risk & Compliance sections above.",
+<<<<<<< HEAD
     "- **Bull & Bear Case** — the upside and downside narrative. The 'Quantitative Valuation' section above already gives you a real base/bull/bear DCF band computed off this company's own numbers (default assumptions, disclosed) — ground your narrative in those figures rather than restating them as prose alone.",
     "- **Valuation Call** — your own fair-value view. Don't just restate the default-assumption DCF above: state where you'd override its assumptions (growth path, WACC, terminal growth) with your own judgment and why, and — if a clean listed peer exists — run `comparables_valuation` too. If you agree with the default assumptions, say so explicitly rather than leaving it ambiguous whether this is your view or the server's default.",
+=======
+    "- **Bull & Bear Case** — the upside and downside narrative, ideally backed by `scenario_analysis`'s base/bull/bear DCF output rather than prose alone.",
+    "- **Valuation Call** — a fair-value view built on `dcf_valuation` and/or `comparables_valuation`, with your own assumptions stated and reasoned, not defaulted by this server.",
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     "",
     "Write these the way a sell-side analyst would: direct, data-led, and free of hedging filler (\"it is important to note\", \"based on the information provided\") — every claim should trace back to a fact already in this report or a number from the valuation tools above.",
   ];
@@ -592,7 +665,11 @@ function buildAnalystChecklistSection(): ResearchSection {
 function buildNewsSection(news: ToolResult<Awaited<ReturnType<typeof getLatestNews>>["data"]> | null): ResearchSection | null {
   if (!news) return null;
   const lines = news.data.articles
+<<<<<<< HEAD
     .slice(0, 12)
+=======
+    .slice(0, 5)
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     .map((a) => `- [${a.title}](${a.url})${a.publishedDate ? ` — ${a.publishedDate.slice(0, 10)}` : ""}`);
 
   return {
@@ -626,18 +703,24 @@ export async function buildInstitutionalReport(opts: InstitutionalReportOptions)
   const [
     profileSettled,
     overviewSettled,
+<<<<<<< HEAD
     shareholdingSettled,
     managementSettled,
     financialsSettled,
     segmentRevenueSettled,
     industrySettled,
     marketSizeSettled,
+=======
+    financialsSettled,
+    industrySettled,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     competitorsSettled,
     fundingSettled,
     litigationSettled,
     promoterSettled,
     negativeNewsSettled,
     newsSettled,
+<<<<<<< HEAD
     managementCommentarySettled,
     consensusSettled,
   ] = await Promise.allSettled([
@@ -649,30 +732,46 @@ export async function buildInstitutionalReport(opts: InstitutionalReportOptions)
     getSegmentRevenue(baseContext),
     getIndustryOverview(baseContext),
     getMarketSize(baseContext),
+=======
+  ] = await Promise.allSettled([
+    getCompanyProfile(baseContext),
+    getCompanyOverview(baseContext),
+    getFinancialStatements(baseContext),
+    getIndustryOverview(baseContext),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     getDiscoverCompetitors(baseContext),
     getFundingHistory(baseContext),
     getLitigationHistory(baseContext),
     getPromoterBackground(baseContext),
     getNegativeNews(baseContext),
     getLatestNews(baseContext, 180),
+<<<<<<< HEAD
     getManagementCommentary(baseContext),
     getConsensusEstimates(baseContext),
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   ]);
 
   const profile = unwrap(profileSettled, "company_profile", phaseErrors);
   const overview = unwrap(overviewSettled, "company_overview", phaseErrors);
+<<<<<<< HEAD
   const shareholding = unwrap(shareholdingSettled, "shareholding_pattern", phaseErrors);
   const management = unwrap(managementSettled, "management_profile", phaseErrors);
   const financials = unwrap(financialsSettled, "financial_statements", phaseErrors);
   const segmentRevenue = unwrap(segmentRevenueSettled, "segment_revenue", phaseErrors);
   const industry = unwrap(industrySettled, "industry_overview", phaseErrors);
   const marketSize = unwrap(marketSizeSettled, "market_size", phaseErrors);
+=======
+  const financials = unwrap(financialsSettled, "financial_statements", phaseErrors);
+  const industry = unwrap(industrySettled, "industry_overview", phaseErrors);
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   const competitors = unwrap(competitorsSettled, "discover_competitors", phaseErrors);
   const funding = unwrap(fundingSettled, "funding_history", phaseErrors);
   const litigation = unwrap(litigationSettled, "litigation_history", phaseErrors);
   const promoter = unwrap(promoterSettled, "promoter_background", phaseErrors);
   const negativeNews = unwrap(negativeNewsSettled, "negative_news", phaseErrors);
   const news = unwrap(newsSettled, "latest_news", phaseErrors);
+<<<<<<< HEAD
   const managementCommentary = unwrap(managementCommentarySettled, "management_commentary", phaseErrors);
   const consensus = unwrap(consensusSettled, "consensus_estimates", phaseErrors);
 
@@ -698,6 +797,17 @@ export async function buildInstitutionalReport(opts: InstitutionalReportOptions)
     buildManagementCommentarySection(managementCommentary),
     buildNewsSection(news),
     buildConsensusSection(consensus),
+=======
+
+  const sections: ResearchSection[] = [
+    buildCompanySnapshotSection(profile, overview),
+    buildFinancialSection(financials),
+    buildIndustrySection(industry),
+    buildCompetitorSection(competitors),
+    buildFundingSection(funding),
+    buildRiskScreeningSection(litigation, promoter, negativeNews),
+    buildNewsSection(news),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     buildAnalystChecklistSection(),
   ].filter((s): s is ResearchSection => s !== null);
 

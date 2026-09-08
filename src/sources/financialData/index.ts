@@ -10,9 +10,12 @@ export const FINANCIAL_DATA_PROFILE: SourceProfile = {
   searchTemplates: {
     peerComparison: (subject) => `${subject} financial results shareholding pattern peer comparison`,
     marketData: (subject) => `${subject} share price market cap`,
+<<<<<<< HEAD
     shareholding: (subject) => `${subject} shareholding pattern promoter FII DII public holding percentage`,
     segmentRevenue: (subject) => `${subject} segment wise revenue break up business mix investor presentation`,
     operatingMetrics: (subject) => `${subject} key operating metrics KPI investor presentation quarterly update`,
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
   },
   confidence: 0.85,
   tier: "annual_report",

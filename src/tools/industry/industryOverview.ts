@@ -51,14 +51,22 @@ export async function getIndustryOverview(contextInput: ResearchContextInput): P
     context,
     templateKey: "overview",
     subject,
+<<<<<<< HEAD
     numResults: 14,
+=======
+    numResults: 8,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "industry_overview",
   });
 
   return {
     data: {
       industry: context.sector ?? context.company ?? "unspecified",
+<<<<<<< HEAD
       summary: results.slice(0, 9).map((r) => r.text.slice(0, 1500)).join("\n\n"),
+=======
+      summary: results.slice(0, 4).map((r) => r.text.slice(0, 500)).join("\n\n"),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
       sourceUrls: results.map((r) => r.url),
     },
     citations,

@@ -35,7 +35,11 @@ export function registerSearchCompanyTool(server: FastMCP): void {
           context,
           templateKey: "discovery",
           subject: context.company!,
+<<<<<<< HEAD
           numResults: 10,
+=======
+          numResults: 6,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
           cacheNamespace: "search_company",
           verifyEntity: context.company,
         });
@@ -47,7 +51,11 @@ export function registerSearchCompanyTool(server: FastMCP): void {
             candidates: results.map((r) => ({
               title: r.title,
               url: r.url,
+<<<<<<< HEAD
               snippet: r.text.slice(0, 700),
+=======
+              snippet: r.text.slice(0, 300),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
               publishedDate: r.publishedDate,
             })),
           },

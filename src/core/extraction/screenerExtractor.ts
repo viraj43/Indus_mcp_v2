@@ -259,6 +259,7 @@ export function mapScreenerToFinancialStatements(extraction: ScreenerExtraction)
     } satisfies FinancialStatement;
   });
 }
+<<<<<<< HEAD
 
 /** A quarter column counts as real if its header looks like "Mon YYYY"
  * (screener's format for quarter-end columns, same shape as the annual
@@ -316,3 +317,5 @@ export function mapScreenerQuarters(quarters: ExtractedTable | null): FinancialS
       } satisfies FinancialStatement;
     });
 }
+=======
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f

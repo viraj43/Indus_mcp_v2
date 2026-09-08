@@ -16,6 +16,10 @@ export function getRedisClient(): Redis | null {
   if (client) return client;
 
   client = new Redis(env.REDIS_URL, {
+<<<<<<< HEAD
+=======
+    family: 0,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     maxRetriesPerRequest: 2,
     retryStrategy: (times: number) => (times > 3 ? null : Math.min(times * 200, 1000)),
     lazyConnect: true,

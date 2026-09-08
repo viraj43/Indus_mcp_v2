@@ -33,14 +33,23 @@ export async function getCompanyOverview(contextInput: ResearchContextInput): Pr
     context,
     templateKey: "overview",
     subject: context.company!,
+<<<<<<< HEAD
     numResults: 12,
+=======
+    numResults: 6,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     cacheNamespace: "company_overview",
     verifyEntity: context.company,
   });
 
   const summary = results
+<<<<<<< HEAD
     .slice(0, 8)
     .map((r) => r.text.slice(0, 1500))
+=======
+    .slice(0, 3)
+    .map((r) => r.text.slice(0, 500))
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
     .join("\n\n");
 
   return {

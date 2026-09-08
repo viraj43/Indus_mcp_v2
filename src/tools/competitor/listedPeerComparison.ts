@@ -38,7 +38,11 @@ export function registerListedPeerComparisonTool(server: FastMCP): void {
           context,
           templateKey: "peerComparison",
           subject: context.company!,
+<<<<<<< HEAD
           numResults: 12,
+=======
+          numResults: 8,
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
           cacheNamespace: "listed_peer_comparison",
           verifyEntity: context.company,
         });
@@ -48,7 +52,11 @@ export function registerListedPeerComparisonTool(server: FastMCP): void {
           publishedDate: r.publishedDate,
           marketCapRaw: r.text.match(MARKET_CAP_REGEX)?.[1] ?? null,
           peRatio: r.text.match(PE_RATIO_REGEX)?.[1] ? parseFloat(r.text.match(PE_RATIO_REGEX)![1]) : null,
+<<<<<<< HEAD
           snippet: r.text.slice(0, 700),
+=======
+          snippet: r.text.slice(0, 300),
+>>>>>>> 6e7f6127dba9d8884cd7f1957c7e4521c678ab0f
         }));
 
         return buildResponse({
